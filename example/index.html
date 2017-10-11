@@ -11,11 +11,12 @@
 <script>
 	var Hook = fairy.utils._class({
 		hook : function(node, props, val) {
-			console.log(props);
+			console.log(node);
 		},
 		type : "V-HOOK"
 	});
 	el = new fairy.element('div',{style:{color:"red"}, "click":new Hook()},["text"]);
+console.log(el);
 	document.body.appendChild(new fairy.draw(el));
 
 </script>
