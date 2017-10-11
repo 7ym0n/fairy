@@ -9,7 +9,14 @@
     </head>
 <body>
 <script>
-//console.log(utils);
+	var Hook = fairy.utils._class({
+		hook : function(node, props, val) {
+			console.log(props);
+		},
+		type : "V-HOOK"
+	});
+	el = new fairy.element('div',{style:{color:"red"}, "click":new Hook()},["text"]);
+	document.body.appendChild(new fairy.draw(el));
 
 </script>
 </body>
