@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 
 module.exports = {
-    entry: __dirname + "/example/example.js",
+    entry: __dirname + "/src/main.js",
     output: {
         path: __dirname + "/build",
         filename: "bundle.js"
@@ -37,7 +37,10 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.BannerPlugin('copyleft 7ym0n.q6e'),
         new webpack.optimize.UglifyJsPlugin(),
-        new webpack.BannerPlugin('版权所有，翻版必究')
+        new webpack.DefinePlugin({
+          'process.env': 'development'
+        })
     ],
 };

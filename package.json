@@ -11,12 +11,14 @@
     "style-loader": "*",
     "css-loader": "*",
     "babel-loader": "*",
-    "babel-core": "*"
+    "babel-core": "*",
+    "browserify": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "example": "babel example -d build/example",
     "build": "babel src -d build",
+    "browserify":"browserify build/main.js -o build/bundle.js ",
     "webpack": "webpack -p --progress",
     "start": "webpack-dev-server --open"
   },
