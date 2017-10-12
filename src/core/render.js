@@ -1,16 +1,17 @@
 "use strict";
 
-var utils = require('./utils.js');
-var applyProperties = require('./apply-props.js');
+var Utils = require('./utils.js');
+var ApplyProperties = require('./apply-props.js');
+var Handle = require('./handle.js');
 
-var render = new utils._class({
+var Render = new Utils._class({
     create : function(node) {
-        var vNode = node;
-        if (utils.isWidget(vNode)) {
+        var vNode = (new Handle(node)).a;
+        if (Utils.isWidget(vNode)) {
             return vNode.init();
-        } else if (utils.isVText(vNode)) {
+        } else if (Utils.isVText(vNode)) {
             return document.createTextNode(vNode.text)
-        } else if (!utils.isVNode(vNode)) {
+        } else if (!Utils.isVNode(vNode)) {
             
             return null;
         }
@@ -19,7 +20,7 @@ var render = new utils._class({
             document.createElementNS(vNode.namespace, vNode.tagName);
         
         var props = vNode.properties;
-        new applyProperties(node, props);
+        new ApplyProperties(node, props);
         
         var children = vNode.children;
         if(children) {
@@ -38,4 +39,4 @@ var render = new utils._class({
     
 });
 
-module.exports = render;
+module.exports = Render;

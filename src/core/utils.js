@@ -87,20 +87,38 @@ _.split = function (str, regexp, limit) {
     return rst;
 }
 
+_.V_HOOK = 'V-HOOK';
+_.V_NODE = 'V-NODE';
+_.V_TEXT = 'V-TEXT';
+_.V_WIDGET = 'V-WIDGET';
+_.V_THUNK = 'V-THUNK';
+
 _.isVHook = function(hook) {
-    return hook && hook.type == 'V-HOOK';
+    return hook && hook.type == _.V_HOOK;
 }
 
 _.isVNode = function(node) {
-    return node && node.type == 'V-NODE';
+    return node && node.type == _.V_NODE;
 }
 
 _.isVText = function(text) {
-    return text && text.type == 'V-TEXT';
+    return text && text.type == _.V_TEXT;
 }
 _.isWidget = function(w) {
-    return w && w.type == 'V-WIDGET';
+    return w && w.type == _.V_WIDGET;
 }
 _.isThunk = function(t) {
-    return t && t.type == 'V-THUNK';
+    return t && t.type == _.V_THUNK;
+}
+_.addType = function(type) {
+    if(!_.isString(type)) {
+        type = String(type);
+    }
+    return _[type.replace(/-|\./g,"_").toLocaleUpperCase] = type.replace(/_|\./g,"-").toLocaleUpperCase
+}
+_.getType = function(key) {
+    if(!_.isString(type)) {
+        type = String(type);
+    }
+    return _[type.replace(/-|\./g,"_").toLocaleUpperCase];
 }

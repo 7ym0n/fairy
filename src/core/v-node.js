@@ -1,8 +1,8 @@
 "use strict";
 
-var utils = require('./utils.js');
+var Utils = require('./utils.js');
 
-var VNode = new utils._class({
+var VNode = new Utils._class({
     create : function(tagName, properties, children, key, namespace){
         this.tagName = tagName
         this.properties = properties || noProperties
@@ -20,7 +20,7 @@ var VNode = new utils._class({
         for (var propName in properties) {
             if (properties.hasOwnProperty(propName)) {
                 var property = properties[propName]
-                if (utils.isVHook(property) && property.unhook) {
+                if (Utils.isVHook(property) && property.unhook) {
                     if (!hooks) {
                         hooks = {}
                     }
@@ -32,7 +32,7 @@ var VNode = new utils._class({
 
         for (var i = 0; i < count; i++) {
             var child = children[i]
-            if (utils.isVNode(child)) {
+            if (Utils.isVNode(child)) {
                 descendants += child.count || 0
 
                 if (!hasWidgets && child.hasWidgets) {
@@ -46,11 +46,11 @@ var VNode = new utils._class({
                 if (!descendantHooks && (child.hooks || child.descendantHooks)) {
                     descendantHooks = true
                 }
-            } else if (!hasWidgets && utils.isWidget(child)) {
+            } else if (!hasWidgets && Utils.isWidget(child)) {
                 if (typeof child.destroy === "function") {
                     hasWidgets = true
                 }
-            } else if (!hasThunks && utils.isThunk(child)) {
+            } else if (!hasThunks && Utils.isThunk(child)) {
                 hasThunks = true;
             }
         }
@@ -61,7 +61,7 @@ var VNode = new utils._class({
         this.hooks = hooks
         this.descendantHooks = descendantHooks
     },
-    type : 'V-NODE'
+    type : Utils.V_NODE
     
 });
 

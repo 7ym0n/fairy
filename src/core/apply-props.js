@@ -1,15 +1,15 @@
 "use strict";
 
-var utils = require('./utils.js');
+var Utils = require('./utils.js');
 
-var applyProperties = new utils._class({
+var ApplyProperties = new Utils._class({
     create : function (node, props, previous) {
         for (var propName in props) {
             var propValue = props[propName];
 
             if (propValue === undefined) {
                 this.removeProperty(node, propName, propValue, previous);
-            } else if (utils.isVHook(propValue)) {
+            } else if (Utils.isVHook(propValue)) {
                 this.removeProperty(node, propName, propValue, previous);
                 if (propValue.hook) {
                     propValue.hook(node,
@@ -17,7 +17,7 @@ var applyProperties = new utils._class({
                         previous ? previous[propName] : undefined);
                 }
             } else {
-                if (utils.isObject(propValue)) {
+                if (Utils.isObject(propValue)) {
                     this.patchObject(node, props, previous, propName, propValue);
                 } else {
                     node[propName] = propValue;
@@ -30,7 +30,7 @@ var applyProperties = new utils._class({
         if (previous) {
             var previousValue = previous[propName];
 
-            if (!utils.isVHook(previousValue)) {
+            if (!Utils.isVHook(previousValue)) {
                 if (propName === "attributes") {
                     for (var attrName in previousValue) {
                         node.removeAttribute(attrName);
@@ -68,13 +68,13 @@ var applyProperties = new utils._class({
             return;
         }
 
-        if(previousValue && utils.isObject(previousValue) &&
+        if(previousValue && Utils.isObject(previousValue) &&
             this.getPrototype(previousValue) !== this.getPrototype(propValue)) {
             node[propName] = propValue;
             return;
         }
 
-        if (!utils.isObject(node[propName])) {
+        if (!Utils.isObject(node[propName])) {
             node[propName] = {};
         }
 
@@ -99,4 +99,4 @@ var applyProperties = new utils._class({
     
 });
 
-module.exports = applyProperties;
+module.exports = ApplyProperties;

@@ -1,8 +1,8 @@
 "use strict";
 
-var utils = require('./utils.js');
+var Utils = require('./utils.js');
 
-var hook = new utils._class({
+var Hook = new Utils._class({
     create : function (value) {
         this.hashKey = '__EV_STORE_KEY@3';
         this.value = value;
@@ -27,7 +27,7 @@ var hook = new utils._class({
         }
         return hash;
     },
-    type : 'V-HOOK'
+    type : Utils.V_HOOK
 });
 
-module.exports = hook;
+module.exports = Hook;

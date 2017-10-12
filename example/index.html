@@ -3,22 +3,31 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>点击事件绑定改变大小与移动</title>
-        <link href="assert/css/core.css" rel="stylesheet">
-        <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+
         <script type="text/javascript" src="../build/bundle.js"></script>
     </head>
 <body>
 <script>
-	var Hook = fairy.utils._class({
+window.onload = function(){
+	var app = Fairy();
+
+	var Hook = app.utils._class({
 		hook : function(node, props, val) {
 			console.log(node);
 		},
-		type : "V-HOOK"
+		type : app.utils.V_HOOK
 	});
-	el = new fairy.element('div',{style:{color:"red"}, "click":new Hook()},["text"]);
-console.log(el);
-	document.body.appendChild(new fairy.draw(el));
-
+	function h(color) {
+		return new app.element('div',{style:{color:"red"}, "click":new Hook()},["text"]);
+	}
+	var a = h('#9898');
+	var b = h('red');
+	document.body.appendChild(new app.draw(a));
+	
+	patchs = new app.diff(a, b);
+	console.log(patchs);
+	
+}
 </script>
 </body>
 </html>

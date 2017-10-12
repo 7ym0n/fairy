@@ -1,12 +1,12 @@
 "use strict";
 
-var utils = require('./utils.js');
+var Utils = require('./utils.js');
 
-var VText = new utils._class({
+var VText = new Utils._class({
     create : function(text){
         this.text = String(text)
     },
-    type : 'V-TEXT'
+    type : Utils.V_TEXT
     
 });
 

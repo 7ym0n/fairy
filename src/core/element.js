@@ -1,19 +1,19 @@
 "use strict";
 
-var utils = require('./utils.js');
+var Utils = require('./utils.js');
 var VNode = require('./v-node.js');
 var VText = require('./v-text.js');
-var hook = require('./hook.js');
+var Hook = require('./hook.js');
 
 function isChild(p) {
-    return utils.isVNode(p) || utils.isVText(p);
+    return Utils.isVNode(p) || Utils.isVText(p);
 }
 
 function isChildren(params) {
-    return utils.isString(params) || utils.isArray(params) || isChild(params);
+    return Utils.isString(params) || Utils.isArray(params) || isChild(params);
 }
 
-var element = new utils._class({
+var Element = new Utils._class({
     create : function (tagName, properties, children) {
         var childNodes = [];
         var tag, props, key, namespace;
@@ -39,7 +39,7 @@ var element = new utils._class({
             return 'DIV';
         }
         var noId = !(props.hasOwnProperty('id'));
-        var tagParts = utils.split(tagName, classIdSplit);
+        var tagParts = Utils.split(tagName, classIdSplit);
         var tag = null;
         
         if (notClassId.test(tagParts[1])) {
@@ -83,25 +83,25 @@ var element = new utils._class({
             if (props.hasOwnProperty(propName)) {
                 var value = props[propName];
 
-                if (utils.isVHook(value)) {
+                if (Utils.isVHook(value)) {
                     continue;
                 }
 
                 if (propName.substr(0, 3) === 'ev-') {
                     // add ev-foo support
-                    props[propName] = new hook(value);
+                    props[propName] = new Hook(value);
                 }
             }
         }
     },
     addChild : function(c, childNodes, tag, props) {
-        if (utils.isString(c)) {
+        if (Utils.isString(c)) {
             childNodes.push(new VText(c));
-        } else if (utils.isNumber(c)) {
+        } else if (Utils.isNumber(c)) {
             childNodes.push(new VText(String(c)));
         } else if (isChild(c)) {
             childNodes.push(c);
-        } else if (utils.isArray(c)) {
+        } else if (Utils.isArray(c)) {
             for (var i = 0; i < c.length; i++) {
                 this.addChild(c[i], childNodes, tag, props);
             }
@@ -115,4 +115,4 @@ var element = new utils._class({
     type: 'V-ELEM'
 });
 
-module.exports = element;
+module.exports = Element;
