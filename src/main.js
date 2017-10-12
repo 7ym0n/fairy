@@ -11,12 +11,14 @@ var _Fairy = new Utils._class({
     create : function(opts) {
         
     },
-    query: Query,
+    query: function(el){
+        return new Query(el);
+    },
     utils: Utils,
-    element : Element,
-    draw: Render,
-    diff: Diff,
-    patch: Patch
+    element : function(tag, props, child) {return new Element(tag, props, child);},
+    draw: function (node){return new Render(node);},
+    diff: function(a, b){return new Diff(a,b);},
+    patch: function(root, patch){return new Patch(root, patch);}
 });
 
 module.exports = _Fairy;
