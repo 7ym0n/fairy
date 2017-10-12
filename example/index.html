@@ -9,7 +9,7 @@
 <body>
 <script>
 window.onload = function(){
-	var app = Fairy();
+	var app = window.app = Fairy();
 
 	var Hook = app.utils._class({
 		hook : function(node, props, val) {
@@ -18,14 +18,26 @@ window.onload = function(){
 		type : app.utils.V_HOOK
 	});
 	function h(color) {
-		return new app.element('div',{style:{color:"red"}, "click":new Hook()},["text"]);
+		return new app.element('div',{style:{color: color}, "click":new Hook()},["text"]);
 	}
-	var a = h('#9898');
-	var b = h('red');
-	document.body.appendChild(new app.draw(a));
+	var a = h('#0ff');
 	
-	patchs = new app.diff(a, b);
-	console.log(patchs);
+	root = new app.draw(a);
+	document.body.appendChild(root);
+	var i;
+	setInterval(function(){
+		var color = '#';
+		var cArray = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
+		for(var i = 0 ;i < 6; i++){
+			var cIndex = Math.round(Math.random()*15);
+			color += cArray[cIndex];
+		}
+		var b = h(color);
+		patchs = new app.diff(a, b);
+		console.log(patchs.getPatch());
+		new app.patch(root, patchs.getPatch());
+		i++;
+	}, 1000);
 	
 }
 </script>

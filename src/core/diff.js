@@ -457,6 +457,9 @@ var Diff = new Utils._class({
         return value.constructor.prototype
       }
     },
+    getPatch : function() {
+        return this.patch;
+    },
     type : 'V-DIFF'
 });
 
